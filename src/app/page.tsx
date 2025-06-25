@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Slider } from '@/components/ui/slider';
 import { Checkbox } from '@/components/ui/checkbox';
+import { ThemeToggle } from '@/components/theme-toggle';
 import Link from 'next/link';
 
 interface DialogueState {
@@ -111,23 +112,26 @@ export default function DialogueSystem() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-4">
+    <div className="min-h-screen bg-background p-4">
       <div className="max-w-4xl mx-auto">
-        <div className="bg-white border-2 border-gray-300 rounded-lg shadow-lg overflow-hidden">
+        <div className="bg-card border-2 border-border rounded-lg shadow-lg overflow-hidden">
           <div className="bg-gradient-to-r from-violet-600 to-violet-800 text-white px-4 py-2 flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <div className="w-4 h-4 bg-red-500 rounded-full"></div>
               <span className="font-semibold">shit test</span>
             </div>
-            <div className="flex space-x-2">
-              <button className="w-4 h-4 bg-yellow-400 rounded-full"></button>
-              <button className="w-4 h-4 bg-green-400 rounded-full"></button>
-              <button className="w-4 h-4 bg-red-400 rounded-full"></button>
+            <div className="flex items-center space-x-2">
+              <ThemeToggle />
+              <div className="flex space-x-2">
+                <button className="w-4 h-4 bg-yellow-400 rounded-full"></button>
+                <button className="w-4 h-4 bg-green-400 rounded-full"></button>
+                <button className="w-4 h-4 bg-red-400 rounded-full"></button>
+              </div>
             </div>
           </div>
 
-          <div className="bg-gray-200 px-4 py-1 border-b">
-            <div className="flex space-x-4 text-sm">
+          <div className="bg-muted px-4 py-1 border-b border-border">
+            <div className="flex space-x-4 text-sm text-muted-foreground">
               <span>File</span>
               <span>Options</span>
               <span>Help</span>
@@ -135,8 +139,8 @@ export default function DialogueSystem() {
           </div>
 
           <div className="p-6">
-            <div className="bg-white border-2 border-gray-300 rounded p-6 mb-6 min-h-[200px] flex items-center">
-              <div className="text-2xl leading-relaxed font-mono">
+            <div className="bg-background border-2 border-border rounded p-6 mb-6 min-h-[200px] flex items-center">
+              <div className="text-2xl leading-relaxed font-mono text-foreground">
                 {state.text.split('').map((char, index) => (
                   <AnimatedCharacter
                     key={index}
@@ -180,7 +184,7 @@ export default function DialogueSystem() {
                       checked={state.rotate}
                       onCheckedChange={(checked) => updateState('rotate', checked === true)}
                     />
-                    <label htmlFor="rotate" className="text-sm font-medium cursor-pointer">
+                    <label htmlFor="rotate" className="text-sm font-medium cursor-pointer text-foreground">
                       Rotate
                     </label>
                   </div>
@@ -190,7 +194,7 @@ export default function DialogueSystem() {
                       checked={state.sineWave}
                       onCheckedChange={(checked) => updateState('sineWave', checked === true)}
                     />
-                    <label htmlFor="sineWave" className="text-sm font-medium cursor-pointer">
+                    <label htmlFor="sineWave" className="text-sm font-medium cursor-pointer text-foreground">
                       Sine Wave
                     </label>
                   </div>
@@ -200,7 +204,7 @@ export default function DialogueSystem() {
                       checked={state.italic}
                       onCheckedChange={(checked) => updateState('italic', checked === true)}
                     />
-                    <label htmlFor="italic" className="text-sm font-medium cursor-pointer">
+                    <label htmlFor="italic" className="text-sm font-medium cursor-pointer text-foreground">
                       Italic
                     </label>
                   </div>
@@ -210,7 +214,7 @@ export default function DialogueSystem() {
                       checked={state.bold}
                       onCheckedChange={(checked) => updateState('bold', checked === true)}
                     />
-                    <label htmlFor="bold" className="text-sm font-medium cursor-pointer">
+                    <label htmlFor="bold" className="text-sm font-medium cursor-pointer text-foreground">
                       Bold
                     </label>
                   </div>
@@ -221,7 +225,7 @@ export default function DialogueSystem() {
               <div className="space-y-6">
                 {/* Wave Amplitude Slider */}
                 <div className="space-y-3">
-                  <label className="block text-sm font-medium">
+                  <label className="block text-sm font-medium text-foreground">
                     Wave Amplitude
                   </label>
                   <Slider
@@ -232,14 +236,14 @@ export default function DialogueSystem() {
                     step={1}
                     className="w-full"
                   />
-                  <div className="text-center text-sm text-gray-600">
+                  <div className="text-center text-sm text-muted-foreground">
                     {state.waveAmplitude}
                   </div>
                 </div>
 
                 {/* Wave Time Slider */}
                 <div className="space-y-3">
-                  <label className="block text-sm font-medium">
+                  <label className="block text-sm font-medium text-foreground">
                     Wave Time
                   </label>
                   <Slider
@@ -250,7 +254,7 @@ export default function DialogueSystem() {
                     step={0.1}
                     className="w-full"
                   />
-                  <div className="text-center text-sm text-gray-600">
+                  <div className="text-center text-sm text-muted-foreground">
                     {state.waveTime.toFixed(1)}
                   </div>
                 </div>
@@ -263,7 +267,7 @@ export default function DialogueSystem() {
                 type="text"
                 value={inputText}
                 onChange={(e) => setInputText(e.target.value)}
-                className="w-full px-4 py-2 border-2 border-gray-300 rounded focus:border-blue-500 focus:outline-none"
+                className="w-full px-4 py-2 border-2 border-input rounded bg-background text-foreground focus:border-ring focus:outline-none"
                 placeholder="Enter your dialogue text here..."
               />
             </form>
@@ -271,7 +275,7 @@ export default function DialogueSystem() {
         </div>
 
         {/* Footer */}
-        <div className="text-center text-gray-600 mt-4 text-sm">
+        <div className="text-center text-muted-foreground mt-4 text-sm">
           textmotion-studio @ 2025
           <Link href="https://nawin.xyz" target="_blank" className="text-blue-500 hover:text-blue-600 ml-3">nawin.xyz</Link>
         </div>
